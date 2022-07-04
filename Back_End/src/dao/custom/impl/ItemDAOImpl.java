@@ -59,7 +59,12 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean delete(String id) throws SQLException {
-        return false;
+        Connection conn = ItemServlet.ds.getConnection();
+        PreparedStatement pstm = conn.prepareStatement("DELETE FROM item WHERE code=?");
+        pstm.setObject(1, id);
+        boolean b = pstm.executeUpdate() > 0;
+        conn.close();
+        return b;
     }
 
     @Override

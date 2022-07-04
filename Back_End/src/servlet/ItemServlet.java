@@ -67,4 +67,29 @@ public class ItemServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        String itemCode = req.getParameter("itemCode");
+
+        JsonObjectBuilder dataMsgBuilder = Json.createObjectBuilder();
+        PrintWriter writer = resp.getWriter();
+
+        try {
+            if (itemBO.deleteItem(itemCode)) {
+                resp.setStatus(HttpServletResponse.SC_OK); //200
+                dataMsgBuilder.add("data", "");
+                dataMsgBuilder.add("message", "Item Deleted");
+                dataMsgBuilder.add("status", "200");
+                writer.print(dataMsgBuilder.build());
+            }
+        } catch (SQLException e) {
+            resp.setStatus(HttpServletResponse.SC_OK); //200
+            dataMsgBuilder.add("status", 400);
+            dataMsgBuilder.add("message", "Error");
+            dataMsgBuilder.add("data", e.getLocalizedMessage());
+            writer.print(dataMsgBuilder.build());
+        }
+    }
 }
