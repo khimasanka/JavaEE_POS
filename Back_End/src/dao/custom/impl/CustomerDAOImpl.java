@@ -46,12 +46,49 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public JsonObjectBuilder generateID() throws SQLException {
-        return null;
+        Connection conn = CustomerServlet.ds.getConnection();
+        ResultSet rstI = conn.prepareStatement("SELECT id FROM customer ORDER BY id DESC LIMIT 1").executeQuery();
+        if (rstI.next()) {
+            int tempId = Integer.parseInt(rstI.getString(1).split("C")[1]);
+            tempId += 1;
+            if (tempId < 10) {
+                objectBuilder.add("id", "C00" + tempId);
+            } else if (tempId < 100) {
+                objectBuilder.add("id", "C0" + tempId);
+            } else if (tempId < 1000) {
+                objectBuilder.add("id", "C" + tempId);
+            }
+        } else {
+            objectBuilder.add("id", "C001");
+        }
+        conn.close();
+        return objectBuilder;
     }
 
     @Override
     public JsonArrayBuilder search(String id) throws SQLException {
-        return null;
+        Connection conn = CustomerServlet.ds.getConnection();
+        PreparedStatement pstm = conn.prepareStatement("SELECT * FROM customer WHERE customer.id = ?");
+        pstm.setObject(1, "%" + id + "%");
+        ResultSet resultSet = pstm.executeQuery();
+
+        while (resultSet.next()) {
+            String cusIDS = resultSet.getString(1);
+            String cusNameS = resultSet.getString(2);
+            String cusAddressS = resultSet.getString(3);
+            int cusSalaryS = resultSet.getInt(4);
+
+            objectBuilder.add("id", cusIDS);
+            objectBuilder.add("name", cusNameS);
+            objectBuilder.add("address", cusAddressS);
+            objectBuilder.add("salary", cusSalaryS);
+
+            arrayBuilder.add(objectBuilder.build());
+
+            System.out.println(cusIDS + " " + cusNameS + " " + cusAddressS + " " + cusSalaryS);
+        }
+        conn.close();
+        return arrayBuilder;
     }
 
     @Override
@@ -79,6 +116,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean update(Customer customer) throws SQLException {
-        return false;
+        Connection con = CustomerServlet.ds.getConnection();
+        PreparedStatement pstm = con.prepareStatement("UPDATE customer SET name=?, address=?, salary=? WHERE id=?");
+        pstm.setObject(1, customer.getName());
+        pstm.setObject(2, customer.getAddress());
+        pstm.setObject(3, customer.getSalary());
+        pstm.setObject(4, customer.getId());
+        boolean b = pstm.executeUpdate() > 0;
+        con.close();
+        return b;
     }
 }

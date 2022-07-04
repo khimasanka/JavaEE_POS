@@ -29,20 +29,18 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
     public JsonObjectBuilder generateCustomerID() throws SQLException {
-        return null;
+        return customerDAO.generateID();
     }
 
     @Override
     public JsonArrayBuilder searchCustomer(String id) throws SQLException {
-        return null;
+        System.out.println(id);
+        return customerDAO.search(id);
     }
 
     @Override
     public boolean addCustomer(CustomerDTO customerDTO) throws SQLException {
-        Customer customer = new Customer(customerDTO.getId(),
-                customerDTO.getName(),
-                customerDTO.getAddress(),
-                customerDTO.getSalary());
+        Customer customer = new Customer(customerDTO.getId(), customerDTO.getName(), customerDTO.getAddress(), customerDTO.getSalary());
         return customerDAO.save(customer);
     }
 
@@ -53,7 +51,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
     public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException {
-        return false;
+        return customerDAO.update(new Customer(customerDTO.getId(), customerDTO.getName(), customerDTO.getAddress(), customerDTO.getSalary()));
     }
 
     @Override

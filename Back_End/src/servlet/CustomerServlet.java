@@ -6,7 +6,9 @@ import dto.CustomerDTO;
 
 import javax.annotation.Resource;
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,11 +60,12 @@ public class CustomerServlet extends HttpServlet {
         try {
             String option = req.getParameter("option");
             switch (option) {
-                case "GENERATED_ID":
+                case "GENERATE":
                     dataMsgBuilder.add("data", customerBO.generateCustomerID());
                     dataMsgBuilder.add("message", "Done");
                     dataMsgBuilder.add("status", 200);
                     writer.print(dataMsgBuilder.build());
+                    resp.addHeader("Access-Control-Allow-Origin","*");
                     break;
 
                 case "GETALL":
@@ -152,6 +155,37 @@ public class CustomerServlet extends HttpServlet {
             dataMsgBuilder.add("message", "Error");
             dataMsgBuilder.add("data", e.getLocalizedMessage());
             writer.print(dataMsgBuilder.build());
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+
+        JsonReader reader = Json.createReader(req.getReader());
+        JsonObject jsonObject = reader.readObject();
+        String cusIDUpdate = jsonObject.getString("id");
+        String cusNameUpdate = jsonObject.getString("name");
+        String cusAddressUpdate = jsonObject.getString("address");
+        String cusSalaryUpdate = jsonObject.getString("salary");
+        CustomerDTO customerDTO = new CustomerDTO(cusIDUpdate, cusNameUpdate, cusAddressUpdate, Integer.parseInt(cusSalaryUpdate));
+        PrintWriter writer = resp.getWriter();
+        JsonObjectBuilder response = Json.createObjectBuilder();
+        try {
+            if (customerBO.updateCustomer(customerDTO)) {
+                resp.setStatus(HttpServletResponse.SC_CREATED);//201
+                response.add("status", 200);
+                response.add("message", "Successfully Updated");
+                response.add("data", "");
+                writer.print(response.build());
+            }
+
+        } catch (SQLException e) {
+            resp.setStatus(HttpServletResponse.SC_OK); //200
+            response.add("status", 400);
+            response.add("message", "Error");
+            response.add("data", e.getLocalizedMessage());
+            writer.print(response.build());
         }
     }
 }
