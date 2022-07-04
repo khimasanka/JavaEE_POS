@@ -1,11 +1,8 @@
-package entity;
+package dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * @author : Kaveesha Himasanka
@@ -16,9 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Order {
-    private String oid;
-    private Date date;
-    private String customerId;
-    private ArrayList<OrderDetail> orderDetailsArrayList;
+public class CustomerDTO {
+    private String id;
+    private String name;
+    private String address;
+    private double salary;
 }
