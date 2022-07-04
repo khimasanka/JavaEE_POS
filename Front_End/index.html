@@ -232,40 +232,45 @@
 
         <!--text field-->
 
-        <div class="mt-5 row">
-            <label class=" col-sm-1 col-form-label fw-bold" for="txtItemId">Id</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtItemId"
-                       placeholder="I-001"
-                       type="text">
-                <small class="text-danger" id="lblItemId"></small>
-            </div>
+        <div>
+            <form action="ItemForm">
 
-            <label class="col-sm-1 col-form-label fw-bold" for="txtItemName">Item name</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtItemName"
-                       placeholder="Lemon puff"
-                       type="text">
-                <small class="text-danger" id="lblItemName"></small>
-            </div>
-        </div>
+                <div class="mt-5 row">
+                    <label class=" col-sm-1 col-form-label fw-bold" for="txtItemId">Id</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtItemId"
+                               placeholder="I-001"
+                               type="text">
+                        <small class="text-danger" id="lblItemId"></small>
+                    </div>
 
-        <div class="mt-2 row">
-            <label class="col-sm-1 col-form-label fw-bold" for="txtItemPrice">Price</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtItemPrice"
-                       placeholder="120.00"
-                       type="text">
-                <small class="text-danger" id="lblPrice"></small>
-            </div>
+                    <label class="col-sm-1 col-form-label fw-bold" for="txtItemName">Item name</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtItemName"
+                               placeholder="Lemon puff"
+                               type="text">
+                        <small class="text-danger" id="lblItemName"></small>
+                    </div>
+                </div>
 
-            <label class="col-sm-1 col-form-label fw-bold" for="txtItemQty">Qty</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtItemQty"
-                       placeholder="45"
-                       type="text">
-                <small class="text-danger" id="lblQTY"></small>
-            </div>
+                <div class="mt-2 row">
+                    <label class="col-sm-1 col-form-label fw-bold" for="txtItemPrice">Price</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtItemPrice"
+                               placeholder="120.00"
+                               type="text">
+                        <small class="text-danger" id="lblPrice"></small>
+                    </div>
+
+                    <label class="col-sm-1 col-form-label fw-bold" for="txtItemQty">Qty</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtItemQty"
+                               placeholder="45"
+                               type="text">
+                        <small class="text-danger" id="lblQTY"></small>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <!--button bar-->
@@ -321,44 +326,44 @@
 
         <!--text field-->
         <div>
-        <form id="addCusForm">
-            <div class="mt-5 row">
+            <form id="addCusForm">
+                <div class="mt-5 row">
 
-                <label class=" col-sm-1 col-form-label fw-bold" for="txtCId">Id</label>
-                <div class="col-sm-5">
-                    <input aria-label="default input example" class="form-control bg-light" id="txtCId"
-                           placeholder="C00-001"
-                           type="text">
-                    <small class="text-danger" id="lblcusid"></small>
+                    <label class=" col-sm-1 col-form-label fw-bold" for="txtCId">Id</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtCId"
+                               placeholder="C00-001"
+                               type="text">
+                        <small class="text-danger" id="lblcusid"></small>
+                    </div>
+
+                    <label class="col-sm-1 col-form-label fw-bold" for="txtCName">Name</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtCName"
+                               placeholder="Jesse Pinkman "
+                               type="text">
+                        <small class="text-danger" id="lblcusname"></small>
+                    </div>
                 </div>
 
-                <label class="col-sm-1 col-form-label fw-bold" for="txtCName">Name</label>
-                <div class="col-sm-5">
-                    <input aria-label="default input example" class="form-control bg-light" id="txtCName"
-                           placeholder="Jesse Pinkman "
-                           type="text">
-                    <small class="text-danger" id="lblcusname"></small>
-                </div>
-            </div>
+                <div class="mt-2 row">
+                    <label class="col-sm-1 col-form-label fw-bold" for="txtAddress">Address</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtAddress"
+                               placeholder="NO.44 , Panadura"
+                               type="text">
+                        <small class="text-danger" id="lblcusaddress"></small>
+                    </div>
 
-            <div class="mt-2 row">
-                <label class="col-sm-1 col-form-label fw-bold" for="txtAddress">Address</label>
-                <div class="col-sm-5">
-                    <input aria-label="default input example" class="form-control bg-light" id="txtAddress"
-                           placeholder="NO.44 , Panadura"
-                           type="text">
-                    <small class="text-danger" id="lblcusaddress"></small>
+                    <label class="col-sm-1 col-form-label fw-bold" for="txtSalary">Salary</label>
+                    <div class="col-sm-5">
+                        <input aria-label="default input example" class="form-control bg-light" id="txtSalary"
+                               placeholder="100000"
+                               type="text">
+                        <small class="text-danger" id="lblcussalary"></small>
+                    </div>
                 </div>
-
-                <label class="col-sm-1 col-form-label fw-bold" for="txtSalary">Salary</label>
-                <div class="col-sm-5">
-                    <input aria-label="default input example" class="form-control bg-light" id="txtSalary"
-                           placeholder="100000"
-                           type="text">
-                    <small class="text-danger" id="lblcussalary"></small>
-                </div>
-            </div>
-        </form>
+            </form>
         </div>
 
         <!--button bar-->

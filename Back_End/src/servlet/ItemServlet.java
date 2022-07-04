@@ -129,4 +129,35 @@ public class ItemServlet extends HttpServlet {
             writer.print(response.build());
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+
+        String itemCode = req.getParameter("txtItemId");
+        String itemName = req.getParameter("txtItemName");
+        int itemQty = Integer.parseInt(req.getParameter("txtItemQty"));
+        double itemPrice = Double.parseDouble(req.getParameter("txtItemPrice"));
+        ItemDTO itemDTO = new ItemDTO(itemCode, itemName, itemQty, itemPrice);
+        PrintWriter writer = resp.getWriter();
+        JsonObjectBuilder response = Json.createObjectBuilder();
+
+        try {
+            if (itemBO.saveItem(itemDTO)) {
+                resp.setStatus(HttpServletResponse.SC_CREATED);//201
+                response.add("status", 200);
+                response.add("message", "Successfully Added");
+                response.add("data", "");
+                writer.print(response.build());
+            }
+
+        } catch (SQLException e) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            response.add("status", 400);
+            response.add("message", "Error");
+            response.add("data", e.getLocalizedMessage());
+            writer.print(response.build());
+            e.printStackTrace();
+        }
+    }
 }

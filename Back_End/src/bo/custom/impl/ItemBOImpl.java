@@ -61,7 +61,8 @@ public class ItemBOImpl implements ItemBO {
 
     @Override
     public boolean saveItem(ItemDTO itemDTO) throws SQLException {
-        return false;
+        Item item = new Item(itemDTO.getCode(), itemDTO.getDescription(), itemDTO.getQtyOnHand(), itemDTO.getUnitPrice());
+        return itemDAO.save(item);
     }
 
     @Override

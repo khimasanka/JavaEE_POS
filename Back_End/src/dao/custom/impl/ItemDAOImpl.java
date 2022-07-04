@@ -54,7 +54,15 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean save(Item item) throws SQLException {
-       return true;
+        Connection conn = ItemServlet.ds.getConnection();
+        PreparedStatement pstm = conn.prepareStatement("INSERT INTO item VALUE(?,?,?,?)");
+        pstm.setObject(1, item.getCode());
+        pstm.setObject(2, item.getDescription());
+        pstm.setObject(3, item.getQtyOnHand());
+        pstm.setObject(4, item.getUnitPrice());
+        boolean b = pstm.executeUpdate() > 0;
+        conn.close();
+        return b;
     }
 
     @Override
