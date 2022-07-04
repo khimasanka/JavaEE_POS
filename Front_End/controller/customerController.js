@@ -144,7 +144,7 @@ function OpenLoadFunction() {
 }
 
 function deleteCustomer(id) {
-    let customer;
+  /*  let customer;
     if (id != null) {
         for (var i = 0; i < customerDB.length; i++) {
             if (id == customerDB[i].getCustomerId()) {
@@ -156,7 +156,19 @@ function deleteCustomer(id) {
         return true;
     } else {
         return false;
-    }
+    }*/
+
+    $.ajax({
+        url: `http://localhost:8080/pos/customer?customerID=${id}`,
+        method: "DELETE",
+        success: function (resp) {
+            if (resp.status == 200) {
+                console.log("deleted")
+            } else if (resp.status == 400) {
+                alert(resp.data);
+            }
+        }
+    });
 }
 
 function updateCustomer(){
