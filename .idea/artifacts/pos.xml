@@ -6,6 +6,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Back_End" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="javax.json-api-1.1.4" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.25" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="Back_End/web/Web" />
     </root>
