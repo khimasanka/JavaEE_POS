@@ -50,7 +50,7 @@ public class ItemBOImpl implements ItemBO {
 
     @Override
     public JsonObjectBuilder generateItemID() throws SQLException {
-        return null;
+        return itemDAO.generateID();
     }
 
     @Override

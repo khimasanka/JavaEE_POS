@@ -23,31 +23,28 @@ public class ItemDAOImpl implements ItemDAO {
     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
     @Override
     public JsonArrayBuilder getAll() throws SQLException, ClassNotFoundException {
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-
-        Connection conn = ItemServlet.ds.getConnection();
-        ResultSet rst = conn.prepareStatement("SELECT * FROM item").executeQuery();
-        while (rst.next()) {
-            String itemCode = rst.getString(1);
-            String itemName = rst.getString(2);
-            int itemQtyOnHand = rst.getInt(3);
-            int itemUnitPrice = rst.getInt(4);
-
-            objectBuilder.add("code", itemCode);
-            objectBuilder.add("name", itemName);
-            objectBuilder.add("qtyOnHand", itemQtyOnHand);
-            objectBuilder.add("unitPrice", itemUnitPrice);
-
-            arrayBuilder.add(objectBuilder.build());
-        }
-        conn.close();
-        return arrayBuilder;
+       return null;
     }
 
     @Override
     public JsonObjectBuilder generateID() throws SQLException {
-        return null;
+        Connection conn = ItemServlet.ds.getConnection();
+        ResultSet rstI = conn.prepareStatement("SELECT code FROM item ORDER BY code DESC LIMIT 1").executeQuery();
+        if (rstI.next()) {
+            int tempId = Integer.parseInt(rstI.getString(1).split("I")[1]);
+            tempId += 1;
+            if (tempId < 10) {
+                objectBuilder.add("code", "I00" + tempId);
+            } else if (tempId < 100) {
+                objectBuilder.add("code", "I0" + tempId);
+            } else if (tempId < 1000) {
+                objectBuilder.add("code", "I-" + tempId);
+            }
+        } else {
+            objectBuilder.add("code", "I001");
+        }
+        conn.close();
+        return objectBuilder;
     }
 
     @Override
