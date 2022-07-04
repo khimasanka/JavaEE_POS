@@ -71,7 +71,7 @@ public class CustomerServlet extends HttpServlet {
                     dataMsgBuilder.add("message", "Done");
                     dataMsgBuilder.add("status", 200);
                     writer.print(dataMsgBuilder.build());
-                    resp.addHeader("Access-Control-Allow-Origin","*");
+                    //resp.addHeader("Access-Control-Allow-Origin","*");
                     break;
                 case "SEARCH":
                     String id = req.getParameter("id");
@@ -118,6 +118,7 @@ public class CustomerServlet extends HttpServlet {
                 response.add("message", "Successfully Added");
                 response.add("data", "");
                 writer.print(response.build());
+
             }
 
         } catch (SQLException e) {
@@ -128,5 +129,29 @@ public class CustomerServlet extends HttpServlet {
             writer.print(response.build());
         }
 
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        String customerID = req.getParameter("customerID");
+        JsonObjectBuilder dataMsgBuilder = Json.createObjectBuilder();
+        PrintWriter writer = resp.getWriter();
+
+        try {
+            if (customerBO.deleteCustomer(customerID)) {
+                resp.setStatus(HttpServletResponse.SC_OK); //200
+                dataMsgBuilder.add("data", "");
+                dataMsgBuilder.add("message", "Customer Deleted");
+                dataMsgBuilder.add("status", 200);
+                writer.print(dataMsgBuilder.build());
+            }
+        } catch (SQLException e) {
+            resp.setStatus(HttpServletResponse.SC_OK); //200
+            dataMsgBuilder.add("status", 400);
+            dataMsgBuilder.add("message", "Error");
+            dataMsgBuilder.add("data", e.getLocalizedMessage());
+            writer.print(dataMsgBuilder.build());
+        }
     }
 }

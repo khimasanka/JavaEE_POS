@@ -5,9 +5,12 @@ import dao.DAOFactory;
 import dao.custom.impl.CustomerDAOImpl;
 import dto.CustomerDTO;
 import entity.Customer;
+import servlet.CustomerServlet;
 
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -45,7 +48,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
     public boolean deleteCustomer(String id) throws SQLException {
-        return false;
+        return customerDAO.delete(id);
     }
 
     @Override

@@ -69,7 +69,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean delete(String id) throws SQLException {
-        return false;
+        Connection con = CustomerServlet.ds.getConnection();
+        PreparedStatement pstm = con.prepareStatement("DELETE FROM customer WHERE id=?");
+        pstm.setObject(1, id);
+        boolean b = pstm.executeUpdate() > 0;
+        con.close();
+        return b;
     }
 
     @Override

@@ -2,6 +2,7 @@ package filter;
 
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.IOException;
  * Kaveesha Himasanka
  * 2022
  **/
+@WebFilter(urlPatterns = "/*")
 public class MyFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -27,11 +29,11 @@ public class MyFilter implements Filter {
 
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         resp.addHeader("Access-Control-Allow-Origin","*");
+        resp.addHeader("Access-Control-Allow-Methods","DELETE, PUT");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        /*if (method.equals("OPTIONS")){
 
-        if (method.equals("OPTIONS")){
-            resp.addHeader("Access-Control-Allow-Methods","DELETE, PUT");
-            resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
-        }
+        }*/
     }
 
     @Override
