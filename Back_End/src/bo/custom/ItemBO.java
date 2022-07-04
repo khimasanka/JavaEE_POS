@@ -27,4 +27,6 @@ public interface ItemBO extends SuperBO {
     boolean updateItem(ItemDTO itemDTO) throws SQLException;
 
     JsonArrayBuilder loadAllItemIDs() throws SQLException;
+
+    JsonArrayBuilder ItemDetailsForOrder(String id) throws SQLException;
 }

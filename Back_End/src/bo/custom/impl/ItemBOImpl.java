@@ -80,4 +80,9 @@ public class ItemBOImpl implements ItemBO {
     public JsonArrayBuilder loadAllItemIDs() throws SQLException {
         return null;
     }
+
+    @Override
+    public JsonArrayBuilder ItemDetailsForOrder(String id) throws SQLException {
+        return itemDAO.itemDetailsForOrder(id);
+    }
 }

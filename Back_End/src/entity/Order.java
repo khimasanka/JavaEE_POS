@@ -13,12 +13,58 @@ import java.util.Date;
  * Kaveesha Himasanka
  * 2022
  **/
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+
 public class Order {
     private String oid;
     private Date date;
     private String customerId;
     private ArrayList<OrderDetail> orderDetailsArrayList;
+
+    public Order() {
+    }
+
+    public Order(String oid, Date date, String customerId) {
+        this.oid = oid;
+        this.date = date;
+        this.customerId = customerId;
+    }
+
+    public Order(String oid, Date date, String customerId, ArrayList<OrderDetail> orderDetailsArrayList) {
+        this.oid = oid;
+        this.date = date;
+        this.customerId = customerId;
+        this.orderDetailsArrayList = orderDetailsArrayList;
+    }
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public ArrayList<OrderDetail> getOrderDetailsArrayList() {
+        return orderDetailsArrayList;
+    }
+
+    public void setOrderDetailsArrayList(ArrayList<OrderDetail> orderDetailsArrayList) {
+        this.orderDetailsArrayList = orderDetailsArrayList;
+    }
 }

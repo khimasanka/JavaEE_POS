@@ -58,4 +58,11 @@ public class CustomerBOImpl implements CustomerBO {
     public JsonArrayBuilder loadAllCusIDs() throws SQLException {
         return null;
     }
+
+    @Override
+    public JsonArrayBuilder cusIdForOrder(String id) throws SQLException {
+        return customerDAO.cusIdForOrder(id);
+    }
+
+
 }

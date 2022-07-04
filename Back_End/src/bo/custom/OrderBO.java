@@ -1,6 +1,10 @@
 package bo.custom;
 
 import bo.SuperBO;
+import dto.OrderDTO;
+
+import javax.json.JsonObjectBuilder;
+import java.sql.SQLException;
 
 /**
  * @author : Kaveesha Himasanka
@@ -9,4 +13,8 @@ import bo.SuperBO;
  * 2022
  **/
 public interface OrderBO extends SuperBO {
+    boolean saveOrder(OrderDTO orderDTO) throws SQLException;
+
+    JsonObjectBuilder generateID() throws SQLException;
+
 }

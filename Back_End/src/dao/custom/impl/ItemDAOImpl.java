@@ -3,6 +3,7 @@ package dao.custom.impl;
 import dao.custom.ItemDAO;
 import entity.Item;
 import servlet.ItemServlet;
+import servlet.OrderServlet;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -88,4 +89,34 @@ public class ItemDAOImpl implements ItemDAO {
         return b;
     }
 
+    @Override
+    public boolean updateQty(String id, int qty) throws SQLException {
+        Connection connection = OrderServlet.ds.getConnection();
+        PreparedStatement pstm = connection.prepareStatement("UPDATE item SET qtyOnHand=(qtyOnHand-?) WHERE code=?");
+        pstm.setObject(1, qty);
+        pstm.setObject(2, id);
+        boolean b = pstm.executeUpdate() > 0;
+        connection.close();
+        return b;
+    }
+
+    @Override
+    public JsonArrayBuilder itemDetailsForOrder(String id) throws SQLException {
+        Connection conn = OrderServlet.ds.getConnection();
+        PreparedStatement pstm = conn.prepareStatement("SELECT * FROM item WHERE code=?");
+        pstm.setObject(1, id);
+        ResultSet rst = pstm.executeQuery();
+        if (rst.next()) {
+            String description = rst.getString(2);
+            String qtyOnHand = rst.getString(3);
+            String unitPrice = rst.getString(4);
+
+            objectBuilder.add("description", description);
+            objectBuilder.add("qtyOnHand", qtyOnHand);
+            objectBuilder.add("unitPrice", unitPrice);
+            arrayBuilder.add(objectBuilder.build());
+        }
+        conn.close();
+        return arrayBuilder;
+    }
 }

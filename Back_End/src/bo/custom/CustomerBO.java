@@ -28,4 +28,6 @@ public interface CustomerBO extends SuperBO {
 
     JsonArrayBuilder loadAllCusIDs() throws SQLException;
 
+    JsonArrayBuilder cusIdForOrder(String id) throws SQLException;
+
 }
