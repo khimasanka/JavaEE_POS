@@ -68,8 +68,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public JsonArrayBuilder search(String id) throws SQLException {
         Connection conn = CustomerServlet.ds.getConnection();
-        PreparedStatement pstm = conn.prepareStatement("SELECT * FROM customer WHERE customer.id = ?");
-        pstm.setObject(1, "%" + id + "%");
+        PreparedStatement pstm = conn.prepareStatement("SELECT * FROM customer WHERE id=?");
+        pstm.setObject(1, id);
         ResultSet resultSet = pstm.executeQuery();
 
         while (resultSet.next()) {

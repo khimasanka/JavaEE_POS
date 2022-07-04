@@ -101,7 +101,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
+       /* resp.setContentType("application/json");
 
         String cusID = req.getParameter("cusID");
         String cusName = req.getParameter("cusName");
@@ -131,7 +131,44 @@ public class CustomerServlet extends HttpServlet {
             response.add("data", e.getLocalizedMessage());
             writer.print(response.build());
         }
+*/
+        String customerID = req.getParameter("cusID");
+        String customerName = req.getParameter("cusName");
+        String customerAddress = req.getParameter("cusAddress");
+        String salary = req.getParameter("cusSalary ");
 
+        System.out.println(customerID+customerAddress);
+
+//        resp.addHeader("Access-Control-Allow-Origin", "*");
+
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+        try {
+            Connection connection = ds.getConnection();
+            PreparedStatement pstm = connection.prepareStatement("Insert into Customer values(?,?,?,?)");
+            pstm.setObject(1, customerID);
+            pstm.setObject(2, customerName);
+            pstm.setObject(3, customerAddress);
+            pstm.setObject(4, salary);
+
+            if (pstm.executeUpdate() > 0) {
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_CREATED);//201
+                response.add("status", 200);
+                response.add("message", "Successfully Added");
+                response.add("data", "");
+                writer.print(response.build());
+            }
+            connection.close();
+        } catch (SQLException throwables) {
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status", 400);
+            response.add("message", "Error");
+            response.add("data", throwables.getLocalizedMessage());
+            writer.print(response.build());
+            resp.setStatus(HttpServletResponse.SC_OK); //200
+            throwables.printStackTrace();
+        }
     }
 
     @Override
