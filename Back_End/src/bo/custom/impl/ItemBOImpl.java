@@ -4,6 +4,7 @@ import bo.custom.ItemBO;
 import dao.DAOFactory;
 import dao.custom.impl.ItemDAOImpl;
 import dto.ItemDTO;
+import entity.Item;
 import lombok.SneakyThrows;
 import servlet.ItemServlet;
 
@@ -70,7 +71,8 @@ public class ItemBOImpl implements ItemBO {
 
     @Override
     public boolean updateItem(ItemDTO itemDTO) throws SQLException {
-        return false;
+        Item item = new Item(itemDTO.getCode(), itemDTO.getDescription(), itemDTO.getQtyOnHand(), itemDTO.getUnitPrice());
+        return itemDAO.update(item);
     }
 
     @Override

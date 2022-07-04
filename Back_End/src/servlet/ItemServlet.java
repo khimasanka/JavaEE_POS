@@ -2,10 +2,13 @@ package servlet;
 
 import bo.BOFactory;
 import bo.custom.impl.ItemBOImpl;
+import dto.ItemDTO;
 
 import javax.annotation.Resource;
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -90,6 +93,40 @@ public class ItemServlet extends HttpServlet {
             dataMsgBuilder.add("message", "Error");
             dataMsgBuilder.add("data", e.getLocalizedMessage());
             writer.print(dataMsgBuilder.build());
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+
+        JsonReader reader = Json.createReader(req.getReader());
+        JsonObject jsonObject = reader.readObject();
+
+        String code = jsonObject.getString("code");
+        String name = jsonObject.getString("name");
+        int qtyOnHand = jsonObject.getInt("qtyOnHand");
+        int unitPrice = jsonObject.getInt("unitPrice");
+        ItemDTO itemDTO = new ItemDTO(code, name, qtyOnHand, unitPrice);
+        JsonObjectBuilder response = Json.createObjectBuilder();
+        PrintWriter writer = resp.getWriter();
+
+
+        try {
+            if (itemBO.updateItem(itemDTO)) {
+                resp.setStatus(HttpServletResponse.SC_CREATED);//201
+                response.add("status", 200);
+                response.add("message", "Successfully Updated");
+                response.add("data", "");
+                writer.print(response.build());
+            }
+
+        } catch (SQLException e) {
+            resp.setStatus(HttpServletResponse.SC_OK); //200
+            response.add("status", 400);
+            response.add("message", "Error");
+            response.add("data", e.getLocalizedMessage());
+            writer.print(response.build());
         }
     }
 }
