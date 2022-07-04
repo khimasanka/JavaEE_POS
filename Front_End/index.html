@@ -320,42 +320,44 @@
         </div>
 
         <!--text field-->
+        <form id="addCusForm">
+            <div class="mt-5 row">
 
-        <div class="mt-5 row">
-            <label class=" col-sm-1 col-form-label fw-bold" for="txtCId">Id</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtCId"
-                       placeholder="C00-001"
-                       type="text">
-                <small class="text-danger" id="lblcusid"></small>
+                <label class=" col-sm-1 col-form-label fw-bold" for="txtCId">Id</label>
+                <div class="col-sm-5">
+                    <input aria-label="default input example" class="form-control bg-light" id="txtCId"
+                           placeholder="C00-001"
+                           type="text">
+                    <small class="text-danger" id="lblcusid"></small>
+                </div>
+
+                <label class="col-sm-1 col-form-label fw-bold" for="txtCName">Name</label>
+                <div class="col-sm-5">
+                    <input aria-label="default input example" class="form-control bg-light" id="txtCName"
+                           placeholder="Jesse Pinkman "
+                           type="text">
+                    <small class="text-danger" id="lblcusname"></small>
+                </div>
             </div>
 
-            <label class="col-sm-1 col-form-label fw-bold" for="txtCName">Name</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtCName"
-                       placeholder="Jesse Pinkman "
-                       type="text">
-                <small class="text-danger" id="lblcusname"></small>
-            </div>
-        </div>
+            <div class="mt-2 row">
+                <label class="col-sm-1 col-form-label fw-bold" for="txtAddress">Address</label>
+                <div class="col-sm-5">
+                    <input aria-label="default input example" class="form-control bg-light" id="txtAddress"
+                           placeholder="NO.44 , Panadura"
+                           type="text">
+                    <small class="text-danger" id="lblcusaddress"></small>
+                </div>
 
-        <div class="mt-2 row">
-            <label class="col-sm-1 col-form-label fw-bold" for="txtAddress">Address</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtAddress"
-                       placeholder="NO.44 , Panadura"
-                       type="text">
-                <small class="text-danger" id="lblcusaddress"></small>
+                <label class="col-sm-1 col-form-label fw-bold" for="txtSalary">Salary</label>
+                <div class="col-sm-5">
+                    <input aria-label="default input example" class="form-control bg-light" id="txtSalary"
+                           placeholder="100000"
+                           type="text">
+                    <small class="text-danger" id="lblcussalary"></small>
+                </div>
             </div>
-
-            <label class="col-sm-1 col-form-label fw-bold" for="txtSalary">Salary</label>
-            <div class="col-sm-5">
-                <input aria-label="default input example" class="form-control bg-light" id="txtSalary"
-                       placeholder="100000"
-                       type="text">
-                <small class="text-danger" id="lblcussalary"></small>
-            </div>
-        </div>
+        </form>
 
         <!--button bar-->
 
@@ -438,59 +440,59 @@
 
 <script src="assets/js/bootstrap.esm.min.js"></script>
 <script src="assets/js/jquery-3.6.0.min.js"></script>
-<!--<script src="controller/indexController.js"></script>
+<script src="controller/indexController.js"></script>
 <script src="controller/customerController.js"></script>
 <script src="controller/itemController.js"></script>
 <script src="controller/PlaceOrderController.js"></script>
 <script src="controller/OrderController.js"></script>
-<script src="db/dataBase.js"></script>
+<!--//<script src="db/dataBase.js"></script>-->
 <script src="model/CustomerDTO.js"></script>
 <script src="model/ItemDTO.js"></script>
 <script src="model/CartDTO.js"></script>
 <script src="model/OrderDTO.js"></script>
-<script src="model/OrderDetailsDTO.js"></script>-->
+<script src="model/OrderDetailsDTO.js"></script>
 <script>
     ///---------------navigation
 
-    $("#order").css("display","block");
-    $("#customer").css("display","none");
-    $("#item").css("display","none");
-    $("#details").css("display","none");
+    $("#order").css("display", "block");
+    $("#customer").css("display", "none");
+    $("#item").css("display", "none");
+    $("#details").css("display", "none");
 
     $("#btnCustomer").click(function () {
-        $("#order").css("display","none");
-        $("#customer").css("display","block");
-        $("#item").css("display","none");
-        $("#details").css("display","none");
+        $("#order").css("display", "none");
+        $("#customer").css("display", "block");
+        $("#item").css("display", "none");
+        $("#details").css("display", "none");
 
     });
 
     $("#btnItem").click(function () {
-        $("#order").css("display","none");
-        $("#customer").css("display","none");
-        $("#item").css("display","block");
-        $("#details").css("display","none");
+        $("#order").css("display", "none");
+        $("#customer").css("display", "none");
+        $("#item").css("display", "block");
+        $("#details").css("display", "none");
     });
 
     $("#btnDetails").click(function () {
-        $("#order").css("display","none");
-        $("#customer").css("display","none");
-        $("#item").css("display","none");
-        $("#details").css("display","block");
+        $("#order").css("display", "none");
+        $("#customer").css("display", "none");
+        $("#item").css("display", "none");
+        $("#details").css("display", "block");
     });
 
     $("#btnOrder").click(function () {
-        $("#order").css("display","block");
-        $("#customer").css("display","none");
-        $("#item").css("display","none");
-        $("#details").css("display","none");
+        $("#order").css("display", "block");
+        $("#customer").css("display", "none");
+        $("#item").css("display", "none");
+        $("#details").css("display", "none");
     });
 
     year = new Date().getFullYear();
     month = new Date().getMonth();
     date = new Date().getDate();
 
-    $("#currentDate").text(`${year}-${month+1}-${date}`);
+    $("#currentDate").text(`${year}-${month + 1}-${date}`);
 </script>
 </body>
 </html>

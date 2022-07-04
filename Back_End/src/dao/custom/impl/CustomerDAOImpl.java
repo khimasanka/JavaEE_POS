@@ -4,12 +4,10 @@ import dao.custom.CustomerDAO;
 import entity.Customer;
 import servlet.CustomerServlet;
 
+import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author : Kaveesha Himasanka
@@ -18,9 +16,32 @@ import java.sql.SQLException;
  * 2022
  **/
 public class CustomerDAOImpl implements CustomerDAO {
+
+    JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+
     @Override
     public JsonArrayBuilder getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        Connection conn = CustomerServlet.ds.getConnection();
+        /*Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/company","root","1234");
+
+       */ ResultSet rst = conn.prepareStatement("SELECT * FROM customer").executeQuery();
+        while (rst.next()) {
+            String cusID = rst.getString(1);
+            String cusName = rst.getString(2);
+            String cusAddress = rst.getString(3);
+            int cusSalary = rst.getInt(4);
+
+            objectBuilder.add("id", cusID);
+            objectBuilder.add("name", cusName);
+            objectBuilder.add("address", cusAddress);
+            objectBuilder.add("salary", cusSalary);
+
+            arrayBuilder.add(objectBuilder.build());
+        }
+        conn.close();
+        return arrayBuilder;
     }
 
     @Override

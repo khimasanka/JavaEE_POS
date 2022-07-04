@@ -8,8 +8,8 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="javax.json-api-1.1.4" />
-          <element id="library" level="project" name="mysql-connector-java-8.0.25" />
           <element id="file-copy" path="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.25" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="Back_End/web/Web" />

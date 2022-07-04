@@ -48,11 +48,11 @@ $("#btnSearchCustomer").click(function () {
 
 // CRUD OPERATIONS START
 function loadAllCustomers() {
-    $("#tblCustomer").empty();
+   /* $("#tblCustomer").empty();
     for (var i of customerDB) {
-        /*create a html row*/
+        /!*create a html row*!/
         let row = `<tr><td>${i.getCustomerId()}</td><td>${i.getCustomerName()}</td><td>${i.getAddress()}</td><td>${i.getSalary()}</td></tr>`;
-        /*select the table body and append the row */
+        /!*select the table body and append the row *!/
         $("#tblCustomer").append(row);
 
         $("#tblCustomer>tr").dblclick(function () {
@@ -63,7 +63,19 @@ function loadAllCustomers() {
             $("#txtAddress").val($(this).children(":eq(2)").text());
             $("#txtSalary").val($(this).children(":eq(3)").text());
         });
-    }
+    }*/
+    $("#tblCustomer").empty(); //Duplicate Old rows remove
+    $.ajax({
+        url: "http://localhost:8080/pos/customer?option=GETALL",
+        method: "GET",
+        success: function (resp) {
+            for (const customer of resp.data) {
+                let row =  `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.salary}</td></tr>`;
+                $("#tblCustomer").append(row);
+               // bindCustomerRow();
+            }
+        }
+    });
 }
 
 function saveCustomer() {
@@ -77,7 +89,29 @@ function saveCustomer() {
 
     var customer = new CustomerDTO(customerID, customerName, customerAddress, customerSalary);
 
-    customerDB.push(customer);
+    $.ajax({
+        url: "http://localhost:8080/pos/customer",
+        method: "POST",
+        data: $("#addCusForm").serialize(),
+        success: function (res) {
+            if (res.status === 200) {
+                loadAllCustomers();
+                  clearAll()   //Clear Input Fields
+              //  loadAllCustomerIds();
+               // $("#addCustomer").modal('hide');
+            } else {
+                alert(res.data);
+            }
+
+        },
+        error: function (ob, textStatus, error) {
+            console.log(ob);
+            console.log(textStatus);
+            console.log(error);
+        }
+    });
+
+    //customerDB.push(customer);
 }
 
 function searchCustomer(id) {
@@ -106,6 +140,7 @@ function generateCusId() {
 
 function OpenLoadFunction() {
     generateCusId();
+    loadAllCustomers();
 }
 
 function deleteCustomer(id) {

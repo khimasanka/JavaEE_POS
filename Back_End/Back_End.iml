@@ -22,7 +22,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.76" level="application_server_libraries" />
     <orderEntry type="library" name="javax.json-api-1.1.4" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.25" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -32,5 +31,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="mysql-connector-java-8.0.25" level="project" />
+    <orderEntry type="library" name="commons-pool2-2.11.1" level="project" />
   </component>
 </module>
