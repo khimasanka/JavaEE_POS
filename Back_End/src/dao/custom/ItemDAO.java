@@ -10,4 +10,6 @@ import entity.Item;
  * 2022
  **/
 public interface ItemDAO extends CrudDAO<Item,String> {
+
+
 }
